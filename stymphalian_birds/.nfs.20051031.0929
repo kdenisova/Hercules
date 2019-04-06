@@ -1,0 +1,26 @@
+if [ "$#" -ne 1 ] 
+then
+	echo "usage: sh pr_generator.sh <directory_name>"
+else
+	PROJECT=$(echo "$1" | tr '[:upper:]' '[:lower:]' )
+	echo "Creating project $PROJECT..."
+fi
+DIRECTORY=./$PROJECT
+if [ ! -e $DIRECTORY ] 
+then
+	mkdir $DIRECTORY
+	echo "Path of project: ${PWD/#$HOME/~}"/$PROJECT
+else 
+	echo "Directory <$PROJECT> already exist. Please choose another name and try again"
+	exit 0
+fi
+
+while true
+do
+	read -p "Do you want to create autor file? (y/n): "
+	case $yn in
+		[Yy]* ) echo $USER > $DIRECTORY/author; break;;
+		[Nn]* ) break;;
+		* ) echo "Please answer yes/no (y/n)"
+		esac
+done
