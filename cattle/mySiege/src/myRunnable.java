@@ -17,17 +17,18 @@ public class myRunnable implements Runnable {
     }
 
     public void run() {
-        int temp;
+        float temp;
         int successful = 0;
         int failed = 0;
-        long size = 0;
+        float size = 0;
         long start = 0;
         long time = 0;
 
         for (int i = 0; i < executions; i++) {
-            System.out.printf(String.format("Calling #%d on Thread #%d", i, Thread.currentThread().getId()));
+            System.out.println(String.format("Calling #%d on Thread #%d", i, Thread.currentThread().getId()));
             start = System.currentTimeMillis();
             try {
+                Thread.sleep(100 * (i % 2) * random.nextInt((i + 1) * 10));
                 temp = Request();
                 if (temp > 0) {
                     size = size + temp;
@@ -35,17 +36,18 @@ public class myRunnable implements Runnable {
                 } else {
                     failed++;
                 }
+            } catch (InterruptedException e) {
+                System.out.println("Exception: " + e);
             } catch (IOException e) {
                 System.out.println("Exception: " + e);
             }
             time = time + System.currentTimeMillis() - start;
         }
-
+        time = time / executions;
         this.stat = new myStatistics();
         this.stat.setSuccessful(successful);
         this.stat.setFailed(failed);
         this.stat.setSize(size);
-        this.stat.setStart(start);
         this.stat.setTime(time);
 
         mySiege.jobFinished();

@@ -1,8 +1,7 @@
 public final class myStatistics {
     private int Successful;
     private int Failed;
-    private long Size;
-    private long Start;
+    private float Size;
     private long Time;
 
     int getSuccessful() {
@@ -13,12 +12,8 @@ public final class myStatistics {
         return Failed;
     }
 
-    long getSize() {
+    float getSize() {
         return Size;
-    }
-
-    long getStart() {
-        return Start;
     }
 
     long getTime() {
@@ -33,12 +28,8 @@ public final class myStatistics {
       Failed = failed;
     }
 
-    void setSize(long size) {
+    void setSize(float size) {
         Size = size;
-    }
-
-    void setStart(long start) {
-        Start = start;
     }
 
     void setTime(long time) {
@@ -49,7 +40,6 @@ public final class myStatistics {
         Successful += other.Successful;
         Failed += other.Failed;
         Size += other.Size;
-        Start += other.Start;
         Time += other.Time;
     }
 }
